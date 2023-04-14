@@ -1,37 +1,50 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
+import { ICategory } from '@/types/category.interface'
 
-import { IEmailPassword, IAuthResponse } from '@/store/user/user.interface'
-
-import { getContentType } from '@/api/api.helper'
 import { instance } from '@/api/api.interceptor'
 
-import { saveToStorage } from './auth/auth.helper'
+const CATEGORIES = 'categories'
 
 export const CategoryService = {
-	async main(type: 'login' | 'register', data: IEmailPassword) {
-		const response = await instance<IAuthResponse>({
-			url: `/auth/${type}`,
-			method: 'POST',
-			data
+	async getAll() {
+		return instance<ICategory[]>({
+			url: CATEGORIES,
+			method: 'GET'
 		})
-
-		if (response.data.accessToken) saveToStorage(response.data)
-
-		return response.data
 	},
 
-	async getNewTokens() {
-		const refreshToken = Cookies.get('refresh-token')
+	async getById(id: string | number) {
+		return instance<ICategory>({
+			url: `${CATEGORIES}/${id}`,
+			method: 'GET'
+		})
+	},
 
-		const response = await axios.post<string, { data: IAuthResponse }>(
-			process.env.SERVER_URL + '/auth/refresh',
-			{ refreshToken },
-			{ headers: getContentType() }
-		)
+	async getBySlug(slug: string) {
+		return instance<ICategory>({
+			url: `${CATEGORIES}/by-slug/${slug}`,
+			method: 'GET'
+		})
+	},
 
-		if (response.data.accessToken) saveToStorage(response.data)
+	async create() {
+		return instance<ICategory>({
+			url: CATEGORIES,
+			method: 'POST'
+		})
+	},
 
-		return response
+	async update(id: string | number, name: string) {
+		return instance<ICategory>({
+			url: `${CATEGORIES}/${id}`,
+			method: 'PUT',
+			data: { name }
+		})
+	},
+
+	async delete(id: string | number) {
+		return instance<ICategory>({
+			url: `${CATEGORIES}/${id}`,
+			method: 'DELETE'
+		})
 	}
 }

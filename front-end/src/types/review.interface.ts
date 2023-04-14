@@ -7,3 +7,8 @@ export interface IReview {
 	text: string
 	rating: string
 }
+
+export type TypeReviewData = {
+	rating: number
+	text: string
+}

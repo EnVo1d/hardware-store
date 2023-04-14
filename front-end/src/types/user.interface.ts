@@ -4,3 +4,10 @@ export interface IUser {
 	name: string
 	phone: string
 }
+
+export type TypeUserData = {
+	email: string
+	password?: string
+	name?: string
+	phone?: string
+}
