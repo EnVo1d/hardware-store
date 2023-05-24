@@ -18,6 +18,13 @@ export class AuthController {
 	@UsePipes(new ValidationPipe())
 	@Post('register')
 	async register(@Body() dto: AuthDto) {
+		// const data = await this.authService.register(dto)
+		// response.cookie('accessToken', data.accessToken, { maxAge: 60 * 60 * 1000 })
+		// response.cookie('refreshToken', data.accessToken, {
+		// 	maxAge: 30 * 24 * 60 * 60 * 1000,
+		// 	httpOnly: true
+		// })
+		// return data.user
 		return await this.authService.register(dto)
 	}
 
@@ -25,6 +32,13 @@ export class AuthController {
 	@UsePipes(new ValidationPipe())
 	@Post('login')
 	async login(@Body() dto: AuthDto) {
+		// const data = await this.authService.login(dto)
+		// response.cookie('accessToken', data.accessToken, { maxAge: 60 * 60 * 1000 })
+		// response.cookie('refreshToken', data.accessToken, {
+		// 	maxAge: 30 * 24 * 60 * 60 * 1000,
+		// 	httpOnly: true
+		// })
+		// return data.user
 		return await this.authService.login(dto)
 	}
 
@@ -32,6 +46,13 @@ export class AuthController {
 	@UsePipes(new ValidationPipe())
 	@Post('refresh')
 	async getNewTokens(@Body() dto: RefreshTokenDto) {
+		// const data = await this.authService.getTokens(dto)
+		// response.cookie('accessToken', data.accessToken, { maxAge: 60 * 60 * 1000 })
+		// response.cookie('refreshToken', data.accessToken, {
+		// 	maxAge: 30 * 24 * 60 * 60 * 1000,
+		// 	httpOnly: true
+		// })
+		// return data.user
 		return await this.authService.getTokens(dto)
 	}
 }

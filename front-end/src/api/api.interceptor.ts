@@ -1,8 +1,7 @@
-import axios from 'axios'
-
-import { errorCatch, getContentType } from './api.helper'
-import { clearStorage, getAccessToken } from '@/services/auth/auth.helper'
+import { getAccessToken, removeFromStorage } from '@/services/auth/auth.helper'
 import { AuthService } from '@/services/auth/auth.service'
+import axios from 'axios'
+import { errorCatch, getContentType } from './api.helper'
 
 export const instance = axios.create({
 	baseURL: process.env.SERVER_URL,
@@ -35,9 +34,10 @@ instance.interceptors.response.use(
 				await AuthService.getNewTokens()
 				return instance.request(originalRequest)
 			} catch (error) {
-				if (errorCatch(error) === 'jwt expired') clearStorage()
+				if (errorCatch(error) === 'jwt expired') removeFromStorage()
 			}
 		}
+
 		throw error
 	}
 )

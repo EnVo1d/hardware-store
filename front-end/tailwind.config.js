@@ -3,16 +3,22 @@ const twColors = require('tailwindcss/colors')
 
 const colors = {
 	transparent: twColors.transparent,
-	black: '#2E3239',
+	black: '#2e3239',
+	gray: '#cdcdcd',
 	white: twColors.white,
-	primary: '#FF9902',
-	secondary: '#161D25',
-	'bg-colors': '#F2F2F5',
-	aqua: '#268697'
+	secondary: '#161d25',
+	primary: '#ff9902',
+	'bg-color': '#f2f2f5',
+	aqua: '#268697',
+	red: twColors.red[400]
 }
 
 module.exports = {
-	content: ['./pages/**/*.{js,ts,jsx,tsx}', './src/**/*.{js,ts,jsx,tsx}'],
+	content: [
+		'./pages/**/*.{js,ts,jsx,tsx,mdx}',
+		'./components/**/*.{js,ts,jsx,tsx,mdx}',
+		'./src/**/*.{js,ts,jsx,tsx,mdx}'
+	],
 	theme: {
 		colors,
 		extend: {

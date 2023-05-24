@@ -4,12 +4,7 @@ export default function Document() {
 	return (
 		<Html lang='en'>
 			<Head>
-				<link
-					rel='icon'
-					href='images/favicon.svg'
-					sizes='any'
-					type='image/svg+xml'
-				/>
+				<link rel='icon' href='/favicon.svg' sizes='any' type='image/svg+xml' />
 			</Head>
 			<body>
 				<Main />

@@ -1,11 +1,8 @@
-import axios from 'axios'
-import Cookies from 'js-cookie'
-
-import { IAuthResponse, IEmailPassword } from '@/store/user/user.interface'
-
 import { getContentType } from '@/api/api.helper'
 import { instance } from '@/api/api.interceptor'
-
+import { IAuthResponse, IEmailPassword } from '@/store/user/user.interface'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 import { saveToStorage } from './auth.helper'
 
 export const AuthService = {
