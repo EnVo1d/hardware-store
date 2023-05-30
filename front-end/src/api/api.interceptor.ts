@@ -3,10 +3,14 @@ import { AuthService } from '@/services/auth/auth.service'
 import axios from 'axios'
 import { errorCatch, getContentType } from './api.helper'
 
-export const instance = axios.create({
+const axiosOptions = {
 	baseURL: process.env.SERVER_URL,
 	headers: getContentType()
-})
+}
+
+export const axiosClassic = axios.create(axiosOptions)
+
+export const instance = axios.create(axiosOptions)
 
 instance.interceptors.request.use(async config => {
 	const accessToken = getAccessToken()
@@ -23,7 +27,7 @@ instance.interceptors.response.use(
 		const originalRequest = error.config
 
 		if (
-			(error.response.status === 401 ||
+			(error?.response?.status === 401 ||
 				errorCatch(error) === 'jwt expired' ||
 				errorCatch(error) === 'jwt must be provided') &&
 			error.config &&

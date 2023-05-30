@@ -38,3 +38,11 @@ export enum EnumProductSort {
 	NEWEST = 'newest',
 	OLDEST = 'oldest'
 }
+
+export type TypeProducts = {
+	products: IProduct[]
+}
+export type TypePaginationProducts = {
+	length: number
+	products: IProduct[]
+}
