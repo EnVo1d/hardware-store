@@ -4,7 +4,8 @@ export const returnReviewObject: Prisma.ReviewSelect = {
 	user: {
 		select: {
 			id: true,
-			name: true
+			name: true,
+			surname: true
 		}
 	},
 	createdAt: true,

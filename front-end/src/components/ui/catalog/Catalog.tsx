@@ -23,7 +23,7 @@ const Catalog: FC<ICatalog> = ({ products, isLoading, title }) => {
 					))}
 				</div>
 			) : (
-				<div>There are no products</div>
+				<div>Немає елементів</div>
 			)}
 		</section>
 	)

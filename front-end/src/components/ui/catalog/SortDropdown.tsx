@@ -4,10 +4,10 @@ import { Dispatch, FC, SetStateAction } from 'react'
 import Select from 'react-select'
 
 const options = [
-	{ value: EnumProductSort.HIGH_PRICE, label: 'High price' },
-	{ value: EnumProductSort.LOW_PRICE, label: 'Low price' },
-	{ value: EnumProductSort.NEWEST, label: 'Newest' },
-	{ value: EnumProductSort.OLDEST, label: 'Oldest' }
+	{ value: EnumProductSort.HIGH_PRICE, label: 'Найвища ціна' },
+	{ value: EnumProductSort.LOW_PRICE, label: 'Найнижча ціна' },
+	{ value: EnumProductSort.NEWEST, label: 'Новіші' },
+	{ value: EnumProductSort.OLDEST, label: 'Старіші' }
 ]
 
 interface ISortDropdown {

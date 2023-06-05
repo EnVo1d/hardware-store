@@ -1,6 +1,6 @@
 export const convertPrice = (price: number) => {
-	return new Intl.NumberFormat('en-US', {
+	return new Intl.NumberFormat('ua-UA', {
 		style: 'currency',
-		currency: 'USD'
+		currency: 'UAH'
 	}).format(price)
 }

@@ -16,11 +16,11 @@ const SearchPage: NextPage = () => {
 	)
 
 	return (
-		<Meta title='Search'>
+		<Meta title='Пошук'>
 			<Layout>
 				<Catalog
-					products={data?.products || []}
-					title={`Search by term: ${query.term || ''}`}
+					products={data?.data || []}
+					title={`Пошук за: ${query.term || ''}`}
 				/>
 			</Layout>
 		</Meta>

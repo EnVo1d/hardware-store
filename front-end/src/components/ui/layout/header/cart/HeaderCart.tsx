@@ -9,6 +9,9 @@ import { FC } from 'react'
 import { RiShoppingCartLine } from 'react-icons/ri'
 import CartItem from './cart-item/CartItem'
 
+import { useActions } from '@/hooks/useActions'
+import { OrderService } from '@/services/orders.service'
+import { useMutation } from '@tanstack/react-query'
 import styles from './Cart.module.sass'
 
 const HeaderCart: FC = () => {
@@ -16,7 +19,26 @@ const HeaderCart: FC = () => {
 
 	const { items, total } = useCart()
 
+	const { reset } = useActions()
+
 	const { push } = useRouter()
+
+	const { mutate } = useMutation(
+		['create order'],
+		() =>
+			OrderService.place({
+				items: items.map(item => ({
+					price: item.price,
+					quantity: item.quantity,
+					productId: item.product.id
+				}))
+			}),
+		{
+			onSuccess({ data }) {
+				if (data.message === 'Success') push('/thanks').then(() => reset())
+			}
+		}
+	)
 
 	return (
 		<div className='relative' ref={ref}>
@@ -34,24 +56,30 @@ const HeaderCart: FC = () => {
 					isShow ? 'open-menu' : 'close-menu'
 				)}
 			>
-				<div className='font-normal text-lg mb-5'>My Cart</div>
+				<div className='font-normal text-lg mb-5'>Кошик</div>
 
 				<div className={styles.cart}>
 					{items.length ? (
 						items.map(item => <CartItem item={item} key={item.id} />)
 					) : (
-						<div className='font-light'>Cart is empty!</div>
+						<div className='font-light'>Кошик порожній</div>
 					)}
 				</div>
 
 				<div className={styles.footer}>
-					<div>Total:</div>
+					<div>Сума:</div>
 					<div>{convertPrice(total)}</div>
 				</div>
 
 				<div className='text-center'>
-					<Button variant='white' size='sm' className='btn-link mt-5 mb-2'>
-						Place order
+					<Button
+						variant='white'
+						size='sm'
+						className='btn-link mt-5 mb-2'
+						onClick={() => mutate()}
+						disabled={total === 0}
+					>
+						Оформити
 					</Button>
 				</div>
 			</div>

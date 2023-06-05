@@ -6,9 +6,9 @@ import { FC } from 'react'
 
 const Home: FC<TypePaginationProducts> = data => {
 	return (
-		<Meta title='Home'>
+		<Meta title='Головна'>
 			<Layout>
-				<CatalogPagination data={data} title='Freshed products' />
+				<CatalogPagination data={data} title='Нові товари' />
 			</Layout>
 		</Meta>
 	)

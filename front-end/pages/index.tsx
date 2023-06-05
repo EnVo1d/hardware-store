@@ -3,8 +3,8 @@ import { ProductService } from '@/services/product.service'
 import { TypePaginationProducts } from '@/types/product.interface'
 import { GetStaticProps, NextPage } from 'next'
 
-const HomePage: NextPage<TypePaginationProducts> = ({ products, length }) => {
-	return <Home products={products} length={length} />
+const HomePage: NextPage<TypePaginationProducts> = ({ data, meta }) => {
+	return <Home data={data} meta={meta} />
 }
 
 export const getStaticProps: GetStaticProps<

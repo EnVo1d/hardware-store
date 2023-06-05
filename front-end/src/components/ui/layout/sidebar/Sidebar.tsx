@@ -1,5 +1,3 @@
-import { useActions } from '@/hooks/useActions'
-import { useAuth } from '@/hooks/useAuth'
 import { CategoryService } from '@/services/category.service'
 import Loader from '@/ui/Loader'
 import { useQuery } from '@tanstack/react-query'
@@ -7,7 +5,6 @@ import cn from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { FC } from 'react'
-import { FiLogOut } from 'react-icons/fi'
 
 const Sidebar: FC = () => {
 	const { data, isLoading } = useQuery(
@@ -19,20 +16,18 @@ const Sidebar: FC = () => {
 	)
 
 	const { asPath } = useRouter()
-	const { user } = useAuth()
-	const { logout } = useActions()
 
 	return (
 		<aside
 			className='bg-secondary flex flex-col justify-between'
-			style={{ height: 'calc(100vh - 91px)' }}
+			style={{ height: '100%' }}
 		>
 			<div>
 				{isLoading ? (
 					<Loader />
 				) : data ? (
 					<>
-						<div className='text-xl text-white mt-4 mb-6 ml-6'>Categories:</div>
+						<div className='text-xl text-white mt-4 mb-6 ml-6'>Категорії:</div>
 						<ul>
 							{data.map(category => (
 								<li key={category.id}>
@@ -52,19 +47,9 @@ const Sidebar: FC = () => {
 						</ul>
 					</>
 				) : (
-					<div>Categories not found!</div>
+					<div>Категорій не знайдено!</div>
 				)}
 			</div>
-
-			{!!user && (
-				<button
-					className='text-white flex items-center ml-10 mb-10'
-					onClick={() => logout()}
-				>
-					<FiLogOut />
-					<span className='ml-2'>Logout</span>
-				</button>
-			)}
 		</aside>
 	)
 }

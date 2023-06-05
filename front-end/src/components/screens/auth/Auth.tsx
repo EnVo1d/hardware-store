@@ -34,51 +34,49 @@ const Auth: FC = () => {
 	}
 
 	return (
-		<Meta title='Auth'>
+		<Meta title='Аутентифікація'>
 			<section className='flex h-screen'>
 				<form
 					onSubmit={handleSubmit(onSubmit)}
 					className='rounded-lg bg-white shadow-sm p-8 m-auto'
 				>
-					<Heading className='capitalize text-center mb-4'>{type}</Heading>
+					<Heading className='text-center mb-4'>
+						{type === 'login' ? 'Увійти' : 'Зареєструватися'}
+					</Heading>
 					{isLoading && <Loader />}
 					<Field
 						{...formRegister('email', {
-							required: 'Email is required',
+							required: 'Необхідно вказати адресу електронної пошти',
 							pattern: {
 								value: validEmail,
-								message: 'Please enter a valid email address'
+								message: 'Будь ласка, введіть дійсну адресу електронної пошти'
 							}
 						})}
-						placeholder='Email'
+						placeholder='Пошта'
 						error={errors.email?.message}
 					/>
 					<Field
 						{...formRegister('password', {
-							required: 'Password is required',
+							required: 'Необхідно ввести пароль',
 							minLength: {
 								value: 6,
-								message: 'Min length should more 6 symbols'
+								message: 'Мінімальна довжина має бути більше 6 символів'
 							}
 						})}
 						type='password'
-						placeholder='Password'
+						placeholder='Пароль'
 						error={errors.password?.message}
 					/>
 					<section className='flex flex-col'>
-						<Button
-							variant='orange'
-							className='mx-auto capitalize'
-							type='submit'
-						>
-							{type}
+						<Button variant='orange' className='mx-auto' type='submit'>
+							{type === 'login' ? 'Увійти' : 'Зареєструватися'}
 						</Button>
 						<button
 							className='inline-block opacity-40 mt-3 text-sm'
 							type='button'
 							onClick={() => setType(type === 'login' ? 'register' : 'login')}
 						>
-							{type === 'login' ? 'Register' : 'Login'}
+							{type === 'login' ? 'Зареєструватися' : 'Увійти'}
 						</button>
 					</section>
 				</form>

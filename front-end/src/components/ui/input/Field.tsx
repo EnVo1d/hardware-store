@@ -3,14 +3,27 @@ import { forwardRef } from 'react'
 import { IField } from './field.interface'
 
 const Field = forwardRef<HTMLInputElement, IField>(
-	({ placeholder, error, className, type = 'text', Icon, ...rest }, ref) => {
+	(
+		{
+			placeholder,
+			error,
+			className,
+			type = 'text',
+			Icon,
+			showSpan = true,
+			...rest
+		},
+		ref
+	) => {
 		return (
 			<div className={cn('mb-4', className)}>
 				<label>
-					<span className='mb-1 block'>
-						{Icon && <Icon className='mr-3' />}
-						{placeholder}
-					</span>
+					{showSpan && (
+						<span className='mb-1 block'>
+							{Icon && <Icon className='mr-3' />}
+							{placeholder}
+						</span>
+					)}
 					<input
 						type={type}
 						placeholder={placeholder}

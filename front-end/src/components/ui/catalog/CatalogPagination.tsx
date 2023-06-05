@@ -7,9 +7,9 @@ import { useQuery } from '@tanstack/react-query'
 import { FC, useState } from 'react'
 import Heading from '../Heading'
 import Loader from '../Loader'
-import Button from '../button/Button'
 import SortDropdown from './SortDropdown'
 import ProductItem from './product-item/ProductItem'
+import Button from '../button/Button'
 
 interface ICatalogPagination {
 	data: TypePaginationProducts
@@ -33,7 +33,7 @@ const CatalogPagination: FC<ICatalogPagination> = ({ data, title }) => {
 			}),
 		{ initialData: data, keepPreviousData: true }
 	)
-	console.log(Array.from({ length: response.length / 10 }))
+
 	if (isLoading) return <Loader />
 
 	return (
@@ -44,15 +44,15 @@ const CatalogPagination: FC<ICatalogPagination> = ({ data, title }) => {
 				sortType={sortType}
 				setSortType={setSortType}
 			/>
-			{response.products.length ? (
+			{response.data.length ? (
 				<>
 					<div className='grid grid-cols-5 gap-10'>
-						{response.products.map(product => (
+						{response.data.map(product => (
 							<ProductItem product={product} key={product.id} />
 						))}
 					</div>
 					<div className='text-center mt-16'>
-						{Array.from({ length: response.length / 10 }).map((_, index) => {
+						{Array.from({ length: response.meta.lastPage }).map((_, index) => {
 							const pageNumber = index + 1
 							return (
 								<Button
@@ -60,7 +60,7 @@ const CatalogPagination: FC<ICatalogPagination> = ({ data, title }) => {
 									size='sm'
 									variant={page === pageNumber ? 'orange' : 'white'}
 									onClick={() => setPage(pageNumber)}
-									className='mx-3'
+									className='mx-1'
 								>
 									{pageNumber}
 								</Button>
@@ -69,7 +69,7 @@ const CatalogPagination: FC<ICatalogPagination> = ({ data, title }) => {
 					</div>
 				</>
 			) : (
-				<div>There are no products</div>
+				<div>Немає елементів</div>
 			)}
 		</section>
 	)

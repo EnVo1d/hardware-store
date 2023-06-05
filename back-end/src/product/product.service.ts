@@ -1,14 +1,21 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
-import { Prisma } from '@prisma/client'
+import { Prisma, Product } from '@prisma/client'
 import { PaginationService } from 'src/pagination/pagination.service'
 import { PrismaService } from 'src/prisma/prisma.service'
 import { generateSlug } from 'src/utils/generate-slug'
+import {
+	PaginateFunction,
+	PaginatedResult,
+	paginator
+} from 'src/utils/paginator'
 import { EnumProductSort, GetAllProductDto } from './dto/get-all.product.dto'
 import { ProductDto } from './product.dto'
 import {
 	returnProductObject,
 	returnProductObjectFullest
 } from './return-product.object'
+
+const paginate: PaginateFunction = paginator({ perPage: 10 })
 
 @Injectable()
 export class ProductService {
@@ -17,7 +24,7 @@ export class ProductService {
 		private pagination: PaginationService
 	) {}
 
-	async getAll(dto: GetAllProductDto = {}) {
+	async getAll(dto: GetAllProductDto = {}): Promise<PaginatedResult<Product>> {
 		const { sort, searchTerm } = dto
 
 		const prismaSort: Prisma.ProductOrderByWithRelationInput[] = []
@@ -59,21 +66,33 @@ export class ProductService {
 			  }
 			: {}
 
-		const { perPage, skip } = this.pagination.getPagination(dto)
-		const products = await this.prisma.product.findMany({
-			where: prismaSearchTermFilter,
-			orderBy: prismaSort,
-			skip,
-			take: perPage,
-			select: returnProductObject
-		})
+		return paginate(
+			this.prisma.product,
+			{
+				where: prismaSearchTermFilter,
+				orderBy: prismaSort,
+				select: returnProductObject
+			},
+			{
+				page: dto.page
+			}
+		)
 
-		return {
-			products,
-			length: await this.prisma.product.count({
-				where: prismaSearchTermFilter
-			})
-		}
+		// const { perPage, skip } = this.pagination.getPagination(dto)
+		// const products = await this.prisma.product.findMany({
+		// 	where: prismaSearchTermFilter,
+		// 	orderBy: prismaSort,
+		// 	skip,
+		// 	take: perPage,
+		// 	select: returnProductObject
+		// })
+
+		// return {
+		// 	products,
+		// 	length: await this.prisma.product.count({
+		// 		where: prismaSearchTermFilter
+		// 	})
+		// }
 	}
 
 	async byId(id: number) {

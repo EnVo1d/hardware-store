@@ -1,12 +1,15 @@
+import { useAuth } from '@/hooks/useAuth'
 import Image from 'next/image'
 import Link from 'next/link'
 import { FC } from 'react'
 import { AiOutlineHeart } from 'react-icons/ai'
-import HeaderProfile from './HeaderProfile'
 import Search from './Search'
 import HeaderCart from './cart/HeaderCart'
+import HeaderProfile from './profile/HeaderProfile'
 
 const Header: FC = () => {
+	const { user } = useAuth()
+
 	return (
 		<header
 			className='bg-secondary w-full py-6 px-6 grid'
@@ -19,12 +22,14 @@ const Header: FC = () => {
 			</Link>
 			<Search />
 			<div className='flex items-center justify-end gap-10 -mt-1.5'>
-				<Link
-					href='/favorites'
-					className='text-white transition-all duration-500 hover:text-primary/90'
-				>
-					<AiOutlineHeart size={28} />
-				</Link>
+				{!!user && (
+					<Link
+						href='/favorites'
+						className='text-white transition-all duration-500 hover:text-primary/90'
+					>
+						<AiOutlineHeart size={28} />
+					</Link>
+				)}
 				<HeaderCart />
 				<HeaderProfile />
 			</div>

@@ -13,6 +13,10 @@ export class UserDto {
 	@IsOptional()
 	name: string
 
+	@IsString()
+	@IsOptional()
+	surname: string
+
 	@IsOptional()
 	@IsString()
 	phone: string
