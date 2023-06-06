@@ -1,10 +1,21 @@
 import { useProfile } from '@/hooks/useProfile'
 import { UserService } from '@/services/user.service'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
+import cn from 'clsx'
 import { FC } from 'react'
 import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai'
 
-const FavoriteButton: FC<{ productId: number }> = ({ productId }) => {
+interface IFavoriteButton {
+	productId: number
+	className?: string
+	size?: number
+}
+
+const FavoriteButton: FC<IFavoriteButton> = ({
+	productId,
+	className,
+	size
+}) => {
 	const { profile } = useProfile()
 
 	const queryClient = useQueryClient()
@@ -25,8 +36,15 @@ const FavoriteButton: FC<{ productId: number }> = ({ productId }) => {
 
 	return (
 		<div>
-			<button onClick={() => mutate()} className='text-primary'>
-				{isExists ? <AiFillHeart /> : <AiOutlineHeart />}
+			<button
+				onClick={() => mutate()}
+				className={cn('text-primary', className)}
+			>
+				{isExists ? (
+					<AiFillHeart size={size} />
+				) : (
+					<AiOutlineHeart size={size} />
+				)}
 			</button>
 		</div>
 	)

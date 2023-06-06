@@ -2,6 +2,7 @@ import { Injectable, NotFoundException } from '@nestjs/common'
 import { Prisma, Product } from '@prisma/client'
 import { PaginationService } from 'src/pagination/pagination.service'
 import { PrismaService } from 'src/prisma/prisma.service'
+import { returnReviewObject } from 'src/review/return-review.object'
 import { generateSlug } from 'src/utils/generate-slug'
 import {
 	PaginateFunction,
@@ -132,6 +133,23 @@ export class ProductService {
 		if (!product) throw new NotFoundException('Product not found')
 
 		return product
+	}
+
+	async bySlugReviews(slug: string) {
+		const reviews = await this.prisma.product.findUnique({
+			where: {
+				slug
+			},
+			select: {
+				reviews: {
+					select: returnReviewObject
+				}
+			}
+		})
+
+		if (!reviews) throw new NotFoundException('Reviews not found')
+
+		return reviews
 	}
 
 	async byCategory(categorySlug: string) {

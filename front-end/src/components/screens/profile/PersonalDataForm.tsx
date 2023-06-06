@@ -50,7 +50,7 @@ const PersonalDataForm: FC<IUserDataForm> = ({ Icon, items, title }) => {
 					items.map(
 						item =>
 							item.formField !== 'email' && (
-								<div className='inline-flex flex-col'>
+								<div className='inline-flex flex-col' key={item.formField}>
 									<DataLabel>{item.name}</DataLabel>
 									<DataField>{item.param}</DataField>
 								</div>
@@ -73,7 +73,7 @@ const PersonalDataForm: FC<IUserDataForm> = ({ Icon, items, title }) => {
 									/>
 								</section>
 							) : item.formField === 'name' ? (
-								<>
+								<section key={item.formField}>
 									<DataLabel>{item.name}</DataLabel>
 									<Field
 										{...register('name', {
@@ -84,9 +84,9 @@ const PersonalDataForm: FC<IUserDataForm> = ({ Icon, items, title }) => {
 										placeholder={item.param}
 										error={errors.name?.message}
 									/>
-								</>
+								</section>
 							) : item.formField === 'phone' ? (
-								<>
+								<section key={item.formField}>
 									<DataLabel>{item.name}</DataLabel>
 									<Field
 										{...register('phone', {
@@ -101,9 +101,9 @@ const PersonalDataForm: FC<IUserDataForm> = ({ Icon, items, title }) => {
 										placeholder='+38 (000) 000-00-00'
 										error={errors.phone?.message}
 									/>
-								</>
+								</section>
 							) : (
-								<></>
+								<div key={item.formField}></div>
 							)
 						)}
 						<div>

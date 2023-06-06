@@ -1,4 +1,4 @@
-import { IReview, TypeReviewData } from '@/types/review.interface'
+import { ILeaveReview, IReview } from '@/types/review.interface'
 
 import { axiosClassic, instance } from '@/api/api.interceptor'
 
@@ -19,11 +19,11 @@ export const ReviewService = {
 		})
 	},
 
-	async leave(productId: string | number, data: TypeReviewData) {
+	async leave(params: ILeaveReview) {
 		return instance<IReview>({
-			url: `${REVIEWS}/leave/${productId}`,
+			url: `${REVIEWS}/leave/${params.productId}`,
 			method: 'POST',
-			data
+			data: params.data
 		})
 	}
 }

@@ -6,6 +6,7 @@ import {
 } from '@/types/product.interface'
 
 import { axiosClassic, instance } from '@/api/api.interceptor'
+import { IReviews } from '@/types/review.interface'
 
 const PRODUCTS = 'products'
 
@@ -38,6 +39,14 @@ export const ProductService = {
 			url: `${PRODUCTS}/by-slug/${slug}`,
 			method: 'GET'
 		})
+	},
+
+	async getBySlugReviews(slug: string) {
+		const { data } = await axiosClassic<IReviews>({
+			url: `${PRODUCTS}/by-slug-reviews/${slug}`,
+			method: 'GET'
+		})
+		return data
 	},
 
 	async getById(productId: string | number) {

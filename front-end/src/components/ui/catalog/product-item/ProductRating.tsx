@@ -2,12 +2,15 @@ import { IProduct } from '@/types/product.interface'
 import { FC, useState } from 'react'
 import { Rating } from 'react-simple-star-rating'
 
-const ProductRating: FC<{ product: IProduct }> = ({ product }) => {
+interface IRating {
+	product: IProduct
+	showText?: boolean
+}
+
+const ProductRating: FC<IRating> = ({ product, showText = true }) => {
 	const [rating, setRating] = useState(
-		Math.round(
-			product.reviews.reduce((acc, review) => acc + review.rating, 0) /
-				product.reviews.length
-		) || 0
+		product.reviews.reduce((acc, review) => acc + review.rating, 0) /
+			product.reviews.length || 0
 	)
 
 	return (
@@ -25,7 +28,9 @@ const ProductRating: FC<{ product: IProduct }> = ({ product }) => {
 				</span>
 			)}
 
-			<span className='text-xs'>({product.reviews.length} reviews)</span>
+			{showText && (
+				<span className='text-xs'>({product.reviews.length} відгуків)</span>
+			)}
 		</div>
 	)
 }

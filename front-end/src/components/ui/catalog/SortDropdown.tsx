@@ -29,6 +29,7 @@ const SortDropdown: FC<ISortDropdown> = ({
 			options={options}
 			className={cn('', className)}
 			onChange={option => handleChange(option?.value)}
+			placeholder='Сортувати...'
 		/>
 	)
 }

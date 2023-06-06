@@ -12,3 +12,12 @@ export type TypeReviewData = {
 	rating: number
 	text: string
 }
+
+export interface ILeaveReview {
+	productId: string | number
+	data: TypeReviewData
+}
+
+export interface IReviews {
+	reviews: IReview[]
+}

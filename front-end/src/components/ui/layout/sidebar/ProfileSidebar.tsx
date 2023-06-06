@@ -15,7 +15,10 @@ const ProfileSidebar: FC = () => {
 	const { logout } = useActions()
 
 	return (
-		<aside className='bg-secondary flex flex-col justify-between h-screen'>
+		<aside
+			className='bg-secondary flex flex-col justify-between'
+			style={{ height: '100%' }}
+		>
 			<div>
 				<ul>
 					<li>

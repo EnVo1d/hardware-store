@@ -6,16 +6,32 @@ import Sidebar from './sidebar/Sidebar'
 
 const profileUrls = ['/profile', '/favorites', '/orders']
 
-const Layout: FC<PropsWithChildren<unknown>> = ({ children }) => {
+interface ILayout {
+	showSidebar?: boolean
+}
+
+const Layout: FC<PropsWithChildren<ILayout>> = ({
+	children,
+	showSidebar = true
+}) => {
 	const { asPath } = useRouter()
 
 	return (
 		<div>
 			<Header />
-			<div className='grid h-screen' style={{ gridTemplateColumns: '1fr 4fr' }}>
-				{profileUrls.includes(asPath) ? <ProfileSidebar /> : <Sidebar />}
-				<main className='p-12'>{children}</main>
-			</div>
+			{showSidebar ? (
+				<div
+					className='grid h-screen'
+					style={{ gridTemplateColumns: '1fr 4fr' }}
+				>
+					{profileUrls.includes(asPath) ? <ProfileSidebar /> : <Sidebar />}
+					<main className='p-12'>{children}</main>
+				</div>
+			) : (
+				<div className='grid h-screen'>
+					<main className='p-12'>{children}</main>
+				</div>
+			)}
 		</div>
 	)
 }

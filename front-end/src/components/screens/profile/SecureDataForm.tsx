@@ -47,7 +47,7 @@ const SecureDataForm: FC<IUserDataForm> = ({ Icon, items, title }) => {
 				</div>
 				{!edit ? (
 					items.map(item => (
-						<div className='inline-flex flex-col'>
+						<div className='inline-flex flex-col' key={item.formField}>
 							<DataLabel>{item.name}</DataLabel>
 							<DataField>{item.param}</DataField>
 						</div>
@@ -74,7 +74,7 @@ const SecureDataForm: FC<IUserDataForm> = ({ Icon, items, title }) => {
 									/>
 								</section>
 							) : item.formField === 'password' ? (
-								<>
+								<section key={item.formField}>
 									<DataLabel>{item.name}</DataLabel>
 									<Field
 										{...register('password', {
@@ -90,7 +90,7 @@ const SecureDataForm: FC<IUserDataForm> = ({ Icon, items, title }) => {
 										placeholder={item.param}
 										error={errors.name?.message}
 									/>
-								</>
+								</section>
 							) : (
 								<></>
 							)

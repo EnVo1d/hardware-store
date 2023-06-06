@@ -36,6 +36,11 @@ export class ProductController {
 		return await this.productService.bySlug(slug)
 	}
 
+	@Get('by-slug-reviews/:slug')
+	async getProductBySlugReviews(@Param('slug') slug: string) {
+		return await this.productService.bySlugReviews(slug)
+	}
+
 	@Get('by-category/:categorySlug')
 	async getProductsByCategory(@Param('categorySlug') categorySlug: string) {
 		return await this.productService.byCategory(categorySlug)

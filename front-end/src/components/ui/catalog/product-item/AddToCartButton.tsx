@@ -1,10 +1,21 @@
 import { useActions } from '@/hooks/useActions'
 import { useCart } from '@/hooks/useCart'
 import { IProduct } from '@/types/product.interface'
+import Button from '@/ui/button/Button'
 import { FC } from 'react'
 import { RiShoppingCartFill, RiShoppingCartLine } from 'react-icons/ri'
 
-const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
+interface ICartButton {
+	product: IProduct
+	type?: 'catalog' | 'product_page'
+	className?: string
+}
+
+const AddToCartButton: FC<ICartButton> = ({
+	product,
+	type = 'catalog',
+	className
+}) => {
 	const { addToCart, removeFromCart } = useActions()
 	const { items } = useCart()
 
@@ -12,10 +23,31 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 		cartItem => cartItem.product.id === product.id
 	)
 
-	return (
-		<div>
-			<button
-				className='text-secondary'
+	if (type === 'catalog')
+		return (
+			<div>
+				<button
+					className='text-secondary'
+					onClick={() =>
+						currentElement
+							? removeFromCart({ id: currentElement.id })
+							: addToCart({
+									product,
+									quantity: 1,
+									price: product.price
+							  })
+					}
+				>
+					{currentElement ? <RiShoppingCartFill /> : <RiShoppingCartLine />}
+				</button>
+			</div>
+		)
+	else
+		return (
+			<Button
+				variant='orange'
+				size='sm'
+				className={className}
 				onClick={() =>
 					currentElement
 						? removeFromCart({ id: currentElement.id })
@@ -26,10 +58,16 @@ const AddToCartButton: FC<{ product: IProduct }> = ({ product }) => {
 						  })
 				}
 			>
-				{currentElement ? <RiShoppingCartFill /> : <RiShoppingCartLine />}
-			</button>
-		</div>
-	)
+				<div className='flex flex-row'>
+					{currentElement ? (
+						<RiShoppingCartFill size={20} />
+					) : (
+						<RiShoppingCartLine size={20} />
+					)}
+					<span className='ml-3'>{currentElement ? 'У кошику' : 'Купити'}</span>
+				</div>
+			</Button>
+		)
 }
 
 export default AddToCartButton
