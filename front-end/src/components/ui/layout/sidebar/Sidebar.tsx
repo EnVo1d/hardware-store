@@ -1,10 +1,9 @@
 import { CategoryService } from '@/services/category.service'
 import Loader from '@/ui/Loader'
 import { useQuery } from '@tanstack/react-query'
-import cn from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { FC } from 'react'
+import Category from './Category'
+import DropdownCategory from './DropdownCategory'
 
 const Sidebar: FC = () => {
 	const { data, isLoading } = useQuery(
@@ -14,8 +13,7 @@ const Sidebar: FC = () => {
 			select: ({ data }) => data
 		}
 	)
-
-	const { asPath } = useRouter()
+	console.log(data)
 
 	return (
 		<aside
@@ -31,17 +29,14 @@ const Sidebar: FC = () => {
 						<ul>
 							{data.map(category => (
 								<li key={category.id}>
-									<Link
-										className={cn(
-											'block text-lg my-3 px-10 hover:text-primary transition-colors duration-200',
-											asPath === `/category/${category.slug}`
-												? 'text-primary'
-												: 'text-white'
-										)}
-										href={`/category/${category.slug}`}
-									>
-										{category.name}
-									</Link>
+									{category.subcategories?.length &&
+									category.generalCategory === null ? (
+										<DropdownCategory category={category} />
+									) : category.generalCategory === null ? (
+										<Category category={category} />
+									) : (
+										<></>
+									)}
 								</li>
 							))}
 						</ul>

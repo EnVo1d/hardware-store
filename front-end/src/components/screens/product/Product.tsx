@@ -34,6 +34,28 @@ const Product: FC<{ product: IProduct }> = ({ product }) => {
 				>
 					<AiOutlineHome size={20} />
 				</Link>
+				{product.category.generalCategory?.generalCategory && (
+					<>
+						<AiOutlineRight size={20} className='mx-5' />
+						<Link
+							className='text-md text-aqua hover:text-primary transition-all duration-300 -mt-1'
+							href={`/category/${product.category.generalCategory.generalCategory.slug}`}
+						>
+							{product.category.generalCategory.generalCategory.name}
+						</Link>
+					</>
+				)}
+				{product.category.generalCategory && (
+					<>
+						<AiOutlineRight size={20} className='mx-5' />
+						<Link
+							className='text-md text-aqua hover:text-primary transition-all duration-300 -mt-1'
+							href={`/category/${product.category.generalCategory.slug}`}
+						>
+							{product.category.generalCategory.name}
+						</Link>
+					</>
+				)}
 				<AiOutlineRight size={20} className='mx-5' />
 				<Link
 					className='text-md text-aqua hover:text-primary transition-all duration-300 -mt-1'

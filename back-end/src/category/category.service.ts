@@ -56,7 +56,12 @@ export class CategoryService {
 			},
 			data: {
 				name: dto.name,
-				slug: generateSlug(dto.name)
+				slug: generateSlug(dto.name),
+				generalCategory: {
+					connect: {
+						id: dto.generalCategory
+					}
+				}
 			}
 		})
 	}

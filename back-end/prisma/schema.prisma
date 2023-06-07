@@ -52,6 +52,10 @@ model Category {
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
 
+  generalCategoryId Int?
+  generalCategory   Category?  @relation("subcategories", fields: [generalCategoryId], references: [id])
+  subcategories     Category[] @relation("subcategories")
+
   name String @unique
   slug String @unique
 
