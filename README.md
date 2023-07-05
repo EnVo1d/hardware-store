@@ -7,6 +7,8 @@ First, run the development server:
 ```bash
 docker-compose up
 
+yarn install
+
 yarn db:sync
 
 yarn seed
@@ -17,6 +19,8 @@ yarn dev
 Next, run the client:
 
 ```bash
+yarn install
+
 yarn dev
 ```
 
