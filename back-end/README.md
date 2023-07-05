@@ -35,6 +35,12 @@ $ yarn install
 ## Running the app
 
 ```bash
+# sync database
+$ yarn db:sync
+
+# seed database
+$ yarn seed
+
 # development
 $ yarn start
 
@@ -43,19 +49,6 @@ $ yarn dev
 
 # production mode
 $ yarn prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
 ```
 
 ## Support

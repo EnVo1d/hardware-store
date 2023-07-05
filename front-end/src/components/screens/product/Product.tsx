@@ -86,7 +86,7 @@ const Product: FC<{ product: IProduct }> = ({ product }) => {
 					size='sm'
 					onClick={() => setState('reviews')}
 				>
-					Відгуки{product.reviews.length && ` ${product.reviews.length}`}
+					Відгуки {product.reviews.length && ` ${product.reviews.length}`}
 				</Button>
 			</section>
 			{state === 'info' ? (

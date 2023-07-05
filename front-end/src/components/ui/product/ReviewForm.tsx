@@ -68,7 +68,7 @@ const ReviewForm: FC<IReviewForm> = ({ productId }) => {
 						onClick={() => setOpen(true)}
 						disabled={!user}
 					>
-						Написати відгук
+						Залишити відгук
 					</Button>
 				</section>
 			) : (
